@@ -1,0 +1,24 @@
+server:
+  port: 3333
+
+spring:
+  application:
+    name: 5-SB-MC-API-GATEWAY
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: welcome-api
+          uri: lb://4-sb-mc-wellcome-api
+          predicates:
+            - Path=/wellcome/**
+
+        - id: greet-api
+          uri: lb://3-sb-mc-greet-api
+          predicates:
+            - Path=/greet/**
